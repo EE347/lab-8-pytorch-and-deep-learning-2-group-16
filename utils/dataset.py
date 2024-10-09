@@ -8,16 +8,18 @@ from tqdm import tqdm
 
 class TeamMateDataset(Dataset):
 
-    def __init__(self, n_images=50, train=True):
+    def __init__(self, n_images=50, train=True, transform = None):
 
         if train:
             dataset_type = 'train'
         else:
             dataset_type = 'test'
 
+        if transform:
+            self.transform = transform
+
         subject_0 = os.listdir(f'lab8/data/{dataset_type}/0')
         subject_1 = os.listdir(f'lab8/data/{dataset_type}/1')
-
         assert len(subject_0) >= n_images and len(subject_1) >= n_images, f'Number of images in each folder should be {n_images}'
 
         subject_0 = subject_0[: n_images]
